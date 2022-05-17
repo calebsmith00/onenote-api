@@ -3,7 +3,7 @@ import { createTemplate } from '../../requests.js'
 
 const router = express.Router()
 
-router.post('/:userId/section/:sectionId/create/template', async(req, res) => {
+router.post('/:userId/section/:sectionId/create/template', async (req, res) => {
     const response = await createTemplate({
         userId: req.params.userId,
         sectionId: req.params.sectionId,
