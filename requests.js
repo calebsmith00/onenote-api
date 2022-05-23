@@ -73,3 +73,19 @@ export async function createNotebook({ userId, requestBody = undefined }) {
 
   return response;
 }
+
+export async function createSection({
+  userId,
+  notebookId,
+  requestBody = undefined,
+}) {
+  const response = await callAPI({
+    url: `${userId}/onenote/notebooks/${notebookId}/sections`,
+    method: `post`,
+    data: {
+      displayName: requestBody.displayName,
+    },
+  });
+
+  return response;
+}
