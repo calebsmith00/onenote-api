@@ -3,6 +3,7 @@ import {
   createTemplate,
   createNotebook,
   createSection,
+  createPage,
 } from "../../requests.js";
 
 const router = express.Router();
@@ -42,6 +43,18 @@ router.post("/:userId/create-section", async (req, res) => {
     requestBody: {
       displayName,
     },
+  });
+
+  res.send(response);
+});
+
+router.post("/:userId/section/:sectionId/create-page", async (req, res) => {
+  if (!req.body) return;
+
+  const response = await createPage({
+    sectionId: req.params.sectionId,
+    userId: req.params.userId,
+    requestBody: req.body,
   });
 
   res.send(response);

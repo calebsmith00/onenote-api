@@ -1,4 +1,5 @@
 import { callAPI } from "./callMsGraph.js";
+import { getTrainingTable } from "./helpers/training.js";
 
 export async function getUsers() {
   return await callAPI();
@@ -85,6 +86,23 @@ export async function createSection({
     data: {
       displayName: requestBody.displayName,
     },
+  });
+
+  return response;
+}
+
+export async function createPage({
+  userId,
+  sectionId,
+  requestBody = undefined,
+}) {
+  const response = await callAPI({
+    url: `${userId}/onenote/sections/${sectionId}/pages`,
+    method: `post`,
+    headers: {
+      "Content-Type": "text/html",
+    },
+    data: getTrainingTable(requestBody),
   });
 
   return response;
