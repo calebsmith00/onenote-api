@@ -1,32 +1,29 @@
-import express, { Router } from "express";
+import express from "express";
 import {
   createTemplate,
   createNotebook,
   createSection,
   createPage,
 } from "../../requests.js";
+import { notebookExists, sectionExists } from "../../requests/exports.js";
 
 const router = express.Router();
-
-router.post("/:userId/section/:sectionId/create/template", async (req, res) => {
-  const response = await createTemplate({
-    userId: req.params.userId,
-    sectionId: req.params.sectionId,
-    requestBody:
-      "<html><head><title>Test</title></head><body><h1>Test</h1></body></html>",
-  });
-
-  res.send("Hello world");
-});
 
 router.post("/:userId/create-notebook", async (req, res) => {
   if (!req.body) return;
 
-  const displayName = req.body["template-title"];
+  const { userId } = req.params;
+  const foundNotebook = await notebookExists({
+    userId,
+    notebookName: "Templates",
+  });
+
+  if (foundNotebook) return res.send({ id: foundNotebook });
+
   const response = await createNotebook({
     userId: req.params.userId,
     requestBody: {
-      displayName,
+      displayName: "Templates",
     },
   });
 
@@ -36,10 +33,19 @@ router.post("/:userId/create-notebook", async (req, res) => {
 router.post("/:userId/create-section", async (req, res) => {
   if (!req.body) return;
 
+  const { userId } = req.params;
+
   const displayName = req.body["template-title"];
+
+  const foundSection = await sectionExists({
+    userId,
+    sectionName: displayName,
+  });
+  if (foundSection) return res.send({ id: foundSection });
+
   const response = await createSection({
     notebookId: req.body.notebookId,
-    userId: req.params.userId,
+    userId,
     requestBody: {
       displayName,
     },
