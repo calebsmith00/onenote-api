@@ -7,7 +7,8 @@ export async function notebookExists({ userId, notebookName }) {
   const response = await callAPI({
     url: `${userId}/onenote/notebooks?${filterClause}`,
   });
+  const values = response.value || [];
 
-  if (response.value.length > 0) return response.value[0].id;
+  if (values.length > 0) return response.value[0].id;
   return false;
 }
