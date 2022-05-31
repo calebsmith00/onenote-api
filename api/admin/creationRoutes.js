@@ -34,21 +34,21 @@ router.post("/:userId/create-section", async (req, res) => {
   if (!req.body) return;
 
   const { userId } = req.params;
-
   const displayName = req.body["template-title"];
+  const notebookId = req.body["notebookId"];
+  const sectionName = req.body["sectionName"] || displayName;
+  if (!displayName || !notebookId || !sectionName) return;
 
   const foundSection = await sectionExists({
     userId,
-    sectionName: displayName,
+    sectionName,
   });
   if (foundSection) return res.send({ id: foundSection });
 
   const response = await createSection({
-    notebookId: req.body.notebookId,
+    notebookId,
     userId,
-    requestBody: {
-      displayName,
-    },
+    sectionName,
   });
 
   res.send(response);
