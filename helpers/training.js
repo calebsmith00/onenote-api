@@ -1,6 +1,7 @@
 export function getTrainingTable(template) {
   const trainings = template["trainings"];
-  if (!trainings) return;
+  const title = template["template-title"];
+  if (!trainings || !title) return;
 
   let html = "";
   trainings.map((training) => {
@@ -16,7 +17,7 @@ export function getTrainingTable(template) {
 
   return `<!DOCTYPE html>
   <html>
-  <head><title>Title</title></head>
+  <head><title>Training List</title></head>
   <body>
   <table>
   ${html}
