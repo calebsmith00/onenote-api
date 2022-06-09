@@ -8,7 +8,7 @@ export async function getUsers() {
 export async function getNotebooks({
   id,
   expandQuery = false,
-  properties = "displayName,id",
+  properties = "displayName,id,lastModifiedDateTime",
 }) {
   const expansionSelector =
     expandQuery &&
