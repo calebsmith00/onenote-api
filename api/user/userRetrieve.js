@@ -47,7 +47,8 @@ router.get("/:userId/retrieve-page", async (req, res) => {
     userId: req.params.userId,
     pageId: req.query.pid,
   });
-  res.send("Null.");
+
+  res.send(response);
 });
 
 export default router;

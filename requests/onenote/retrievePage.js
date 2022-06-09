@@ -16,7 +16,6 @@ export async function getPage({
 
   if (!response) return;
   const dom = parse(response);
-  fetchHTMLElements(dom);
 
-  return "Function finished.";
+  return fetchHTMLElements(dom);
 }
