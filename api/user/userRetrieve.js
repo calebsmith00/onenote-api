@@ -36,8 +36,8 @@ router.get(
   }
 );
 
-router.get("/:userId/retrieve-page", async (req, res) => {
-  if (!req.query.pid)
+router.get("/:userId/retrieve-page/:pid", async (req, res) => {
+  if (!req.params.pid)
     return res.send({
       error: true,
       message: "[ERROR]: No page ID was supplied.",
@@ -45,7 +45,7 @@ router.get("/:userId/retrieve-page", async (req, res) => {
 
   const response = await getPage({
     userId: req.params.userId,
-    pageId: req.query.pid,
+    pageId: req.params.pid,
   });
 
   res.send(response);

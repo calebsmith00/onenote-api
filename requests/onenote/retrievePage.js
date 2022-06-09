@@ -13,7 +13,6 @@ export async function getPage({
   const response = await callAPI({
     url: `${userId}/onenote/pages/${pageId}/${expandPageId}`,
   });
-
   if (!response) return;
   const dom = parse(response);
 
