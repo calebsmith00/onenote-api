@@ -1,7 +1,6 @@
 import { callAPI } from "../exports.js";
 import { fetchHTMLElements } from "../exports.js";
-import jsdom from "jsdom";
-const { JSDOM } = jsdom;
+import { parse } from "node-html-parser";
 
 export async function getPage({
   userId,
@@ -16,12 +15,8 @@ export async function getPage({
   });
 
   if (!response) return;
-  //fetchHTMLElements(response);
-  const dom = new JSDOM(`${response}`, {
-    includeNodeLocations: true,
-    resources: "usable",
-  });
-  console.log(dom.window.document.getElementsByTagName("td")[0].innerText);
+  const dom = parse(response);
+  fetchHTMLElements(dom);
 
   return "Function finished.";
 }

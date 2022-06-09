@@ -6,12 +6,12 @@ function separateHTML(response, category) {
   const collectionSize = collection.length;
   const elements = [];
   for (let i = 0; i < collectionSize; ++i) {
-    if (!collection[i].innerHTML) continue;
+    if (!collection[i].text) continue;
 
     elements.push({
       id: i,
       category,
-      value: collection[i].innerHTML,
+      value: collection[i].text,
     });
   }
 
@@ -25,5 +25,6 @@ export function fetchHTMLElements(response) {
     parsedResponse[element] = separateHTML(response, element);
   });
 
+  console.log(parsedResponse);
   return parsedResponse;
 }
