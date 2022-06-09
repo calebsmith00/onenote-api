@@ -25,6 +25,5 @@ export function fetchHTMLElements(response) {
     parsedResponse[element] = separateHTML(response, element);
   });
 
-  console.log(parsedResponse);
   return parsedResponse;
 }
