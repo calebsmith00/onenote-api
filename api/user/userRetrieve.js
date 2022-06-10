@@ -20,7 +20,7 @@ router.get("/:userId/section/:sectionId/retrieve-pages", async (req, res) => {
     expandQuery: true,
   });
 
-  res.send(response);
+  res.json(response);
 });
 
 router.get(
